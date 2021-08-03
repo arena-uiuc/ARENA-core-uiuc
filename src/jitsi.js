@@ -166,7 +166,7 @@ export class ARENAJitsi {
      * Update screen share object
      * @param {string} screenShareId JitsiTrack object
      * @param {string} videoId Jitsi video Id
-     * @param {string} participantId Jitsi participand Id
+     * @param {string} participantId Jitsi participant Id
      * @return {object} screenShare scene object
      */
     updateScreenShareObject(screenShareId, videoId, participantId) {
