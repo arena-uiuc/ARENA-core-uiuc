@@ -58,21 +58,22 @@ export class ARENAJitsi {
         // https://jitsi-club.gitlab.io/jitsi-self-hosting/en/01-deployment-howto/03-tuning/
         // https://github.com/jitsi/jitsi-meet/blob/master/config.js
         this.confOptions = {
-            openBridgeChannel: true,
-            enableTalkWhileMuted: true,
-            enableNoisyMicDetection: true,
+            //openBridgeChannel: true,
+            //enableTalkWhileMuted: true,
+            //enableNoAudioDetection: true,
+            //enableNoisyMicDetection: true,
             p2p: {
                 enabled: false,
             },
-            constraints: {
-                video: {
-                    height: {
-                        ideal: 1080,
-                        max: 2160,
-                        min: 240,
-                    },
-                },
-            },
+            // constraints: {
+            //     video: {
+            //         height: {
+            //             ideal: 1080,
+            //             max: 2160,
+            //             min: 240,
+            //         },
+            //     },
+            // },
             // enableLayerSuspension: true,
         };
 
