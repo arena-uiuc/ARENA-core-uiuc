@@ -230,6 +230,23 @@ export class CreateUpdate {
             }
             delete data.image; // no other properties applicable to image; delete it
             break;
+        case 'videosphere':
+            entityEl.setAttribute('geometry', 'primitive', 'sphere');
+            if (data.hasOwnProperty('url')) {
+                entityEl.setAttribute('material', 'src', ARENAUtils.crossOriginDropboxSrc(data.url));
+                delete data.url; // remove attribute so we don't set it later
+            }
+            if (data.hasOwnProperty('src')) {
+                entityEl.setAttribute('material', 'src', ARENAUtils.crossOriginDropboxSrc(data.src));
+                delete data.src; // remove attribute so we don't set it later
+            }
+            if (!data.hasOwnProperty('material-extras')) {
+                // default images to sRGBEncoding, if not specified
+                entityEl.setAttribute('material-extras', 'encoding', 'sRGBEncoding');
+                entityEl.setAttribute('material-extras', 'needsUpdate', 'true');
+            }
+            delete data.videosphere; // no other properties applicable to videosphere; delete it
+            break;
         case 'text':
             // Support legacy `data: { text: 'STRING TEXT' }`
             const theText = data.text;
