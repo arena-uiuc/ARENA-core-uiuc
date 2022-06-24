@@ -231,25 +231,20 @@ export class CreateUpdate {
             delete data.image; // no other properties applicable to image; delete it
             break;
         case 'videosphere':
-            entityEl.setAttribute('geometry', 'primitive', 'sphere');
+            // support both url and src property
             if (data.hasOwnProperty('url')) {
-                entityEl.setAttribute('material', 'src', ARENAUtils.crossOriginDropboxSrc(data.url));
+                data.src = data.url; // make src=url
                 delete data.url; // remove attribute so we don't set it later
             }
+            // videosphere is a special case in that the src is applied to the component 'videosphere'
             if (data.hasOwnProperty('src')) {
-                entityEl.setAttribute('material', 'src', ARENAUtils.crossOriginDropboxSrc(data.src));
+                entityEl.setAttribute('videosphere', ARENAUtils.crossOriginDropboxSrc(data.src));
                 delete data.src; // remove attribute so we don't set it later
             }
-            if (!data.hasOwnProperty('material-extras')) {
-                // default images to sRGBEncoding, if not specified
-                entityEl.setAttribute('material-extras', 'encoding', 'sRGBEncoding');
-                entityEl.setAttribute('material-extras', 'needsUpdate', 'true');
-            }
-            delete data.videosphere; // no other properties applicable to videosphere; delete it
             break;
         case 'text':
             // Support legacy `data: { text: 'STRING TEXT' }`
-            const theText = data.text;
+                const theText = data.text;
             if (typeof theText === 'string' || theText instanceof String) {
                 entityEl.setAttribute('text', 'value', data.text);
                 delete data.text;
