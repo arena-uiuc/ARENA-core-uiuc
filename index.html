@@ -147,7 +147,7 @@
     </div>
 </div>
 <a-scene background="color: black" name="ARENAScene" id="ARENAScene" stats-monitor="true"
-         stats="false" webxr="optionalFeatures: hit-test, dom-overlay, computerVision; overlayElement: overlay;"
+         stats="false" webxr="optionalFeatures: worldSensing, hit-test, dom-overlay, computerVision; overlayElement: overlay;"
          ar-hit-test="enabled:true;src:static/images/reticle.png;type:map">
     <a-assets>
         <!-- Vive controller 3d model -->
@@ -157,6 +157,7 @@
 
     <a-entity id="sceneRoot">
         <!-- ground plane so falling objects don't fall through floor -->
+        <a-entity id="worldSensor" world-sensor="enabled:true;"></a-entity>
         <a-box color="#FFAAEE" depth="1000" height="0.01" id="groundPlane" opacity=".01" position="0 -0.01 0"
                transparent="true" width="1000"></a-box>
 

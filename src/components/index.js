@@ -36,6 +36,7 @@ import './thickline/index.js';
 import './threejs-scene.js';
 import './ttl.js';
 import './video-control.js';
+import './worldsensor.js';
 
 /**
  * Additional A-Frame components and systems
