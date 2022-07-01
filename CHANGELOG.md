@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.9.0](https://github.com/conix-center/ARENA-core/compare/v1.8.1...v1.9.0) (2022-07-01)
+
+
+### Features
+
+* add scene landing logic; separate scene name loads; auth uses sweet alert ([#462](https://github.com/conix-center/ARENA-core/issues/462)) ([dd5c4fe](https://github.com/conix-center/ARENA-core/commit/dd5c4fef3bb6024ccf4f7c4e5b4bf14a89bc3030))
+
+
+### Bug Fixes
+
+* missing public clone ([b8eee4a](https://github.com/conix-center/ARENA-core/commit/b8eee4a1c26a6fe6251a7cc95a2588bf37b20d06))
+* **scenes:** proper select order ([2e4f4b0](https://github.com/conix-center/ARENA-core/commit/2e4f4b08e3fa56865e280d88fdd963c0dcc1907c))
+
 ### [1.8.1](https://github.com/conix-center/ARENA-core/compare/v1.8.0...v1.8.1) (2022-05-25)
 
 
