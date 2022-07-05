@@ -63,12 +63,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/conix-center/ARENA-core.git"
+    "url": "git+https://github.com/arena-uiuc/ARENA-core-uiuc.git"
   },
   "bugs": {
-    "url": "https://github.com/conix-center/ARENA-core/issues"
+    "url": "https://github.com/arena-uiuc/ARENA-core-uiuc/pulls"
   },
-  "homepage": "https://github.com/conix-center/ARENA-core#readme",
+  "homepage": "https://github.com/arena-uiuc/ARENA-core-uiuc#readme",
   "parcelIgnore": [
     "apriltag.js",
     "apriltag_wasm.js",
