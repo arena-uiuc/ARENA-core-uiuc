@@ -5,6 +5,9 @@ AFRAME.registerComponent('sprite', {
     },
     follow: {
       default: ''
+    },
+    type: {
+      default: ''
     }
   },
   multiple: true,
@@ -23,18 +26,19 @@ AFRAME.registerComponent('sprite', {
     }
   },
   tick: function() {
-    let data = this.data;
-    if (data.follow === ARENA.camName) {
-      const thisPos = this.getAttribute('position');
+    let self = this;
+    if (self.data.follow === ARENA.camName) {
+      const thisPos = self.getAttribute('position');
       const camera = document.querySelecter('#my-camera');
       const cameraPos = camera.getAttribute('position');
       const deltaPos = cameraPos - thisPos;
 
       const msg = {
-        object_id: this.el.id,
+        object_id: self.el.id,
         action: "update",
         type: "object",
         data: {
+          object_type: data.type,
           rotation: {
             x: Math.atan2(deltaPos.z, deltaPos.x) / (2 * Math.PI) * 360,
             y: Math.atan2(deltaPos.z, deltaPos.y) / (2 * Math.PI) * 360,
@@ -42,8 +46,8 @@ AFRAME.registerComponent('sprite', {
           }
         }
       }
-      console.log("Try publishing. OutputTopic: ${ARENA.outputTopic}");
-      // TODO add publish
+      console.log(`Try publishing. OutputTopic: ${ARENA.outputTopic}`);
+      ARENA.Mqtt.publish(`${ARENA.outputTopic}${self.el.id}`, msg)
     }
     setInterval(tick, 100);
   }
