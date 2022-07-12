@@ -28,7 +28,7 @@ AFRAME.registerComponent('click-listener', {
 
             const clickPos = ARENAUtils.vec3ToObject(position);
             const coordsData = ARENAUtils.setClickData(evt);
-
+            console.log(evt)
             if ('cursorEl' in evt.detail) {
                 // original click event; simply publish to MQTT
                 const thisMsg = {
@@ -41,6 +41,7 @@ AFRAME.registerComponent('click-listener', {
                         source: ARENA.camName,
                     },
                 };
+                console.log(evt)
                 if (!self.el.getAttribute('goto-url') && !self.el.getAttribute('textinput')) {
                     // publishing events attached to user id objects allows sculpting security
                     ARENA.Mqtt.publish(`${ARENA.outputTopic}${ARENA.camName}`, thisMsg);

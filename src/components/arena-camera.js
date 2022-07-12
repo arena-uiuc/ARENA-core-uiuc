@@ -35,6 +35,7 @@ AFRAME.registerComponent('arena-camera', {
         vioRotation: {type: 'vec4', default: new THREE.Quaternion()},
         vioPosition: {type: 'vec3', default: new THREE.Vector3()},
         showStats: {type: 'boolean', default: false},
+        moving: {type: 'boolean', }
     },
     /**
      * Send initial camera create message; Setup heartbeat timer

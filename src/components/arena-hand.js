@@ -17,17 +17,19 @@
  */
 function eventAction(evt, eventName, myThis) {
     const newPosition = myThis.object3D.position;
-
+    
     const coordsData = {
         x: newPosition.x.toFixed(3),
         y: newPosition.y.toFixed(3),
         z: newPosition.z.toFixed(3),
     };
-
+    
     // publish to MQTT
     const objName = myThis.name;
+    
     if (objName) {
         // publishing events attached to user id objects allows sculpting security
+
         ARENA.Mqtt.publish(`${ARENA.outputTopic}${objName}`, {
             object_id: objName,
             action: 'clientEvent',
@@ -37,6 +39,10 @@ function eventAction(evt, eventName, myThis) {
                 source: ARENA.camName,
             },
         });
+    } else {
+        console.log("assigning hand name");
+        myThis.name = myThis.id === 'leftHand' ? ARENA.handLName : ARENA.handRName;
+        eventAction(evt, eventName, myThis);
     }
 }
 
@@ -54,6 +60,7 @@ AFRAME.registerComponent('arena-hand', {
         enabled: {type: 'boolean', default: false},
         hand: {type: 'string', default: 'Left'},
         color: {type: 'string', default: '#' + Math.floor(Math.random() * 16777215).toString(16)},
+        moving: {type: 'boolean', defaule: 'false'}
     },
 
     init: function() {
@@ -63,7 +70,7 @@ AFRAME.registerComponent('arena-hand', {
         this.position = new THREE.Vector3();
 
         this.lastPose = '';
-
+        
         this.name = this.data.hand === 'Left' ? ARENA.handLName : ARENA.handRName;
 
         el.addEventListener('controllerconnected', () => {
@@ -86,17 +93,28 @@ AFRAME.registerComponent('arena-hand', {
             el.setAttribute('visible', false);
         });
 
-        /*
+        
         el.addEventListener('triggerup', function(evt) {
+            
             eventAction(evt, 'triggerup', this);
         });
         el.addEventListener('triggerdown', function(evt) {
+            
             eventAction(evt, 'triggerdown', this);
         });
         el.addEventListener('gripup', function(evt) {
             eventAction(evt, 'gripup', this);
+            if (document.querySelector("#leftHand").components["arena-hand"].data.hand === "Left") {
+                document.querySelector("#leftHand").components["arena-hand"].data.moving = false;
+            }
         });
         el.addEventListener('gripdown', function(evt) {
+            
+            
+            if (document.querySelector("#leftHand").components["arena-hand"].data.hand === "Left") {
+                document.querySelector("#leftHand").components["arena-hand"].data.moving = true;
+                console.log("Success");
+            }
             eventAction(evt, 'gripdown', this);
         });
         el.addEventListener('menuup', function(evt) {
@@ -117,7 +135,8 @@ AFRAME.registerComponent('arena-hand', {
         el.addEventListener('trackpaddown', function(evt) {
             eventAction(evt, 'trackpaddown', this);
         });
-         */
+         
+        
 
         this.tick = AFRAME.utils.throttleTick(this.tick, ARENA.camUpdateIntervalMs, this);
     },
@@ -154,6 +173,12 @@ AFRAME.registerComponent('arena-hand', {
     tick: (function(t, dt) {
         if (!this.name) {
             this.name = this.data.hand === 'Left' ? ARENA.handLName : ARENA.handRName;
+        }
+        if (this.data.enabled && this.data.moving) {
+            cameraRig = this.el.parentEl;
+            dir = new THREE.Vector3();
+            cameraRig.querySelector("a-camera").object3D.getWorldDirection(dir);
+            cameraRig.object3D.translateOnAxis(dir, -0.001 * dt);
         }
 
         this.rotation.setFromRotationMatrix(this.el.object3D.matrixWorld);

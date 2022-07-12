@@ -26,6 +26,13 @@ AFRAME.components['gltf-model'].Component.prototype.update = function() {
         self.model = gltfModel.scene || gltfModel.scenes[0];
         self.model.animations = gltfModel.animations;
         self.model.asset = gltfModel.asset; // save asset
+
+        // ------------------
+        geometry = self.model.children[0].geometry
+        colors = new Uint8Array(geometry.attributes.position.count);
+        colors.fill(255);
+        geometry.addAttribute("color", new THREE.BufferAttribute( colors, 3, true) );
+        // ------------------
         el.setObject3D('mesh', self.model);
         el.emit('model-loaded', {format: 'gltf', model: self.model});
     }, function gltfProgress(xhr) {

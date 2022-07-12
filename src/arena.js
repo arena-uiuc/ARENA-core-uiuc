@@ -83,6 +83,9 @@ export class Arena {
         // set mqttHost and mqttHostURI from url params or defaults
         this.setmqttHost();
 
+        // set idtag
+        //this.setIdTag(42);
+
         // setup event listener
         this.events.on(ARENAEventEmitter.events.ONAUTH, this.onAuth.bind(this));
         this.events.on(ARENAEventEmitter.events.NEW_SETTINGS, (e) => {

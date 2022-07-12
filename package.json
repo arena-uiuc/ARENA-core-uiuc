@@ -30,6 +30,7 @@
     "jquery": "^3.6.0",
     "linkifyjs": "^2.1.9",
     "mqtt-pattern": "^1.2.0",
+    "package-lock.json": "^1.0.0",
     "paho-mqtt": "^1.1.0",
     "sweetalert2": "^10.16.6",
     "three": "npm:super-three@0.137.0",
@@ -56,7 +57,7 @@
     "prewatch": "npm run collect-static",
     "watch": "parcel watch src/index.js",
     "prebuild": "npm run collect-static",
-    "build": "parcel build src/index.js --public-url ./dist",
+    "build": "./node_modules/.bin/parcel build src/index.js --public-url ./dist",
     "build-nominify": "parcel build src/index.js --public-url ./dist --no-optimize",
     "predocs": "echo '# A-Frame components (modules) added to support ARENA core functionality\n' > src/components/README.md; echo '# A-Frame systems (modules) added to support ARENA core functionality\n' > src/systems/README.md",
     "docs": "jsdoc2md src/components/*.js >> src/components/README.md; jsdoc2md src/systems/*.js >> src/systems/README.md"
