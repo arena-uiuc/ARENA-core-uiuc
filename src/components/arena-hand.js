@@ -104,16 +104,16 @@ AFRAME.registerComponent('arena-hand', {
         });
         el.addEventListener('gripup', function(evt) {
             eventAction(evt, 'gripup', this);
-            if (document.querySelector("#leftHand").components["arena-hand"].data.hand === "Left") {
-                document.querySelector("#leftHand").components["arena-hand"].data.moving = false;
+            if (this.components["arena-hand"].data.hand === "Left") {
+                this.components["arena-hand"].data.moving = false;
             }
         });
         el.addEventListener('gripdown', function(evt) {
             
             
-            if (document.querySelector("#leftHand").components["arena-hand"].data.hand === "Left") {
-                document.querySelector("#leftHand").components["arena-hand"].data.moving = true;
-                console.log("Success");
+            if (this.components["arena-hand"].data.hand === "Left") {
+                this.components["arena-hand"].data.moving = true;
+                
             }
             eventAction(evt, 'gripdown', this);
         });
