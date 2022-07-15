@@ -21,6 +21,7 @@ import './gesture-detector.js';
 import './gltf-lod.js';
 import './goto-url.js';
 import './hide-on-enter-vr.js';
+import './hover-message.js';
 import './impulse.js';
 import './jitsi-video.js';
 import './landmark.js';
@@ -36,6 +37,7 @@ import './thickline/index.js';
 import './threejs-scene.js';
 import './ttl.js';
 import './video-control.js';
+
 
 /**
  * Additional A-Frame components and systems
