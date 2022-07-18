@@ -46,7 +46,7 @@ AFRAME.registerComponent("hover-message", {
     init : function() {
         el = this.el;
         el.addEventListener("mouseenter", function(evt) {
-            putMessage(this.components["hover-message"].data);
+            putMessage(this.components["hover-message"].data.text);
         });
         el.addEventListener("mouseleave", function(evt) {
             camera = document.querySelector("#my-camera");

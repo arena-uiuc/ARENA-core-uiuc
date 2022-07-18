@@ -6,6 +6,9 @@
  * Open source software under the terms in /LICENSE
  * Copyright (c) 2020, The CONIX Research Center. All rights reserved.
  * @date 2020
+ * 
+ * Modified by Bohan Liu (bohan3@illinois.edu)
+ * @date 2022
  */
 
 import Swal from 'sweetalert2';
@@ -17,6 +20,7 @@ import Swal from 'sweetalert2';
  * @property {string} [title=Text Input] - The prompt title
  * @property {string} [label=Input text below (max is 140 characters)] - Text prompt label
  * @property {string} [placeholder=Type here] - Text input place hoText
+ * @property {bool} [passthrough = false] - passthrough the original event
  */
 AFRAME.registerComponent('textinput', {
     schema: {
@@ -31,6 +35,9 @@ AFRAME.registerComponent('textinput', {
         },
         placeholder: {
             default: 'Type here',
+        },
+        passthrough: {
+            default: false
         },
     },
 
@@ -58,16 +65,30 @@ AFRAME.registerComponent('textinput', {
                 .then((result) => {
                     if (!result.value) return;
                     const text = result.value.substring(0, 140);
-
-                    const thisMsg = {
-                        object_id: this.id,
-                        action: 'clientEvent',
-                        type: 'textinput',
-                        data: {
-                            writer: ARENA.camName,
-                            text: text,
-                        },
-                    };
+                    passthrough = this.components['textinput'].data.passthrough;
+                    
+                    const thisMsg = passthrough ? 
+                        {
+                            object_id: this.id,
+                            action: 'clientEvent',
+                            type: 'textinput',
+                            data: {
+                                writer: ARENA.camName,
+                                text: text,
+                                point: evt.detail.intersection.point,
+                                normal: evt.detail.intersection.face.normal,
+                            },
+                        } : {
+                            object_id: this.id,
+                            action: 'clientEvent',
+                            type: 'textinput',
+                            data: {
+                                writer: ARENA.camName,
+                                text: text,
+                            }
+                        
+                        };
+                    
 
                     // publishing events attached to user id objects allows sculpting security
                     ARENA.Mqtt.publish(`${ARENA.outputTopic}${ARENA.camName}`, thisMsg);

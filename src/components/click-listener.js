@@ -39,6 +39,7 @@ AFRAME.registerComponent('click-listener', {
                         clickPos: clickPos,
                         position: coordsData,
                         source: ARENA.camName,
+                        normal: evt.detail.intersection.face.normal,
                     },
                 };
                 console.log(evt)
